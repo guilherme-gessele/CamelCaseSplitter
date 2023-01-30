@@ -47,4 +47,10 @@ public class CamelCaseSplitterTest {
         var response = CamelCaseSplitter.converterCamelCase("numeroCPFContribuinte");
         assertEquals(List.of("numero", "CPF", "contribuinte"), response);
     }
+
+    @Test
+    void camel_case_with_digits() {
+        var response = CamelCaseSplitter.converterCamelCase("recupera10Primeiros");
+        assertEquals(List.of("recupera", "10", "primeiros"), response);
+    }
 }

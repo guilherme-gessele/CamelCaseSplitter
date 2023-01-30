@@ -39,13 +39,30 @@ public class CamelCaseSplitter {
 
                 var nextChar = original.charAt(i + 1);
                 var isNextCharUpperCase = Character.isUpperCase(nextChar);
+                var isNextCharDigit = Character.isDigit(nextChar);
 
-                if (isNextCharUpperCase) {
+                if (isNextCharUpperCase || isNextCharDigit) {
                     builder.append(currentChar);
                     strings.add(builder.toString());
                     builder = new StringBuilder();
+                    continue;
                 } else {
                     builder.append(currentChar);
+                    continue;
+                }
+            }
+
+            if (Character.isDigit(currentChar)) {
+
+                var nextChar = original.charAt(i + 1);
+                var isNextCharDigit = Character.isDigit(nextChar);
+
+                if (isNextCharDigit) {
+                    builder.append(currentChar);
+                } else {
+                    builder.append(currentChar);
+                    strings.add(builder.toString());
+                    builder = new StringBuilder();
                 }
             }
         }
