@@ -36,11 +36,10 @@ public class CamelCaseSplitter {
                 if (isNextCharLowerCase) {
                     strings.add(builder.toString());
                     builder = new StringBuilder().append(currentChar);
-                    continue;
                 } else {
                     builder.append(currentChar);
-                    continue;
                 }
+                continue;
             }
 
             if (Character.isLowerCase(currentChar)) {
@@ -49,15 +48,12 @@ public class CamelCaseSplitter {
                 var isNextCharUpperCase = Character.isUpperCase(nextChar);
                 var isNextCharDigit = Character.isDigit(nextChar);
 
+                builder.append(currentChar);
                 if (isNextCharUpperCase || isNextCharDigit) {
-                    builder.append(currentChar);
                     strings.add(builder.toString());
                     builder = new StringBuilder();
-                    continue;
-                } else {
-                    builder.append(currentChar);
-                    continue;
                 }
+                continue;
             }
 
             if (Character.isDigit(currentChar)) {
@@ -65,10 +61,8 @@ public class CamelCaseSplitter {
                 var nextChar = original.charAt(i + 1);
                 var isNextCharDigit = Character.isDigit(nextChar);
 
-                if (isNextCharDigit) {
-                    builder.append(currentChar);
-                } else {
-                    builder.append(currentChar);
+                builder.append(currentChar);
+                if (!isNextCharDigit) {
                     strings.add(builder.toString());
                     builder = new StringBuilder();
                 }
