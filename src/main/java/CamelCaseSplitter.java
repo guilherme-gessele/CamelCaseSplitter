@@ -7,6 +7,11 @@ public class CamelCaseSplitter {
 
     public static List<String> converterCamelCase(String original) {
 
+        var firstChar = original.charAt(0);
+        if (Character.isDigit(firstChar)) {
+            throw new IllegalArgumentException("Cannot start with Digit");
+        }
+
         var strings = new ArrayList<String>();
         var builder = new StringBuilder();
 

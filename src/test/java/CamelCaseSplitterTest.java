@@ -3,6 +3,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class CamelCaseSplitterTest {
 
@@ -52,5 +53,10 @@ public class CamelCaseSplitterTest {
     void camel_case_with_digits() {
         var response = CamelCaseSplitter.converterCamelCase("recupera10Primeiros");
         assertEquals(List.of("recupera", "10", "primeiros"), response);
+    }
+
+    @Test
+    void starting_with_numbers() {
+        assertThrows(IllegalArgumentException.class, () -> CamelCaseSplitter.converterCamelCase("10Primeiros"));
     }
 }
