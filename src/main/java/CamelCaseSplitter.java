@@ -8,7 +8,6 @@ public class CamelCaseSplitter {
     public static List<String> converterCamelCase(String original) {
 
         var strings = new ArrayList<String>();
-        var isPreviousLowerCase = false;
         var builder = new StringBuilder();
 
         for (var i = 0; i < original.length(); i++) {
@@ -21,22 +20,38 @@ public class CamelCaseSplitter {
                 continue;
             }
 
-            if (isPreviousLowerCase && Character.isUpperCase(currentChar)) {
-                isPreviousLowerCase = false;
-                strings.add(builder.toString());
+            if (Character.isUpperCase(currentChar)) {
 
-                builder = new StringBuilder().append(currentChar);
-                continue;
+                var nextChar = original.charAt(i + 1);
+                var isNextCharLowerCase = Character.isLowerCase(nextChar);
+
+                if (isNextCharLowerCase) {
+                    strings.add(builder.toString());
+                    builder = new StringBuilder().append(currentChar);
+                    continue;
+                } else {
+                    builder.append(currentChar);
+                    continue;
+                }
             }
 
             if (Character.isLowerCase(currentChar)) {
-                isPreviousLowerCase = true;
-            }
 
-            builder.append(currentChar);
+                var nextChar = original.charAt(i + 1);
+                var isNextCharUpperCase = Character.isUpperCase(nextChar);
+
+                if (isNextCharUpperCase) {
+                    builder.append(currentChar);
+                    strings.add(builder.toString());
+                    builder = new StringBuilder();
+                } else {
+                    builder.append(currentChar);
+                }
+            }
         }
 
         return strings.stream()
+                .filter(s -> s.length() > 0)
                 .map(s -> {
                     var containsLowerCase = s.chars().anyMatch(Character::isLowerCase);
 
