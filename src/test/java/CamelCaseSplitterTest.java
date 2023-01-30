@@ -17,4 +17,10 @@ public class CamelCaseSplitterTest {
         var response = CamelCaseSplitter.converterCamelCase("Nome");
         assertEquals(List.of("nome"), response);
     }
+
+    @Test
+    void camel_case_starting_with_lowercase() {
+        var response = CamelCaseSplitter.converterCamelCase("nomeComposto");
+        assertEquals(List.of("nome", "composto"), response);
+    }
 }
