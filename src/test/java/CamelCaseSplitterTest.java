@@ -35,4 +35,10 @@ public class CamelCaseSplitterTest {
         var response = CamelCaseSplitter.converterCamelCase("CPF");
         assertEquals(List.of("CPF"), response);
     }
+
+    @Test
+    void camel_case_with_multiple_uppercase_letters() {
+        var response = CamelCaseSplitter.converterCamelCase("numeroCPF");
+        assertEquals(List.of("numero", "CPF"), response);
+    }
 }
