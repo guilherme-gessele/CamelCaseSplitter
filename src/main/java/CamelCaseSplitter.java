@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CamelCaseSplitter {
@@ -10,6 +9,10 @@ public class CamelCaseSplitter {
         var firstChar = original.charAt(0);
         if (Character.isDigit(firstChar)) {
             throw new IllegalArgumentException("Cannot start with Digit");
+        }
+
+        if (original.chars().anyMatch(c -> !(Character.isAlphabetic(c) || Character.isDigit(c)))){
+            throw new IllegalArgumentException("Cannot have not alphabetic digits");
         }
 
         var strings = new ArrayList<String>();

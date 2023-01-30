@@ -59,4 +59,9 @@ public class CamelCaseSplitterTest {
     void starting_with_numbers() {
         assertThrows(IllegalArgumentException.class, () -> CamelCaseSplitter.converterCamelCase("10Primeiros"));
     }
+
+    @Test
+    void with_invalid_chars() {
+        assertThrows(IllegalArgumentException.class, () -> CamelCaseSplitter.converterCamelCase("nome#Composto"));
+    }
 }
