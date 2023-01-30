@@ -23,4 +23,10 @@ public class CamelCaseSplitterTest {
         var response = CamelCaseSplitter.converterCamelCase("nomeComposto");
         assertEquals(List.of("nome", "composto"), response);
     }
+
+    @Test
+    void camel_case_starting_with_uppercase() {
+        var response = CamelCaseSplitter.converterCamelCase("NomeComposto");
+        assertEquals(List.of("nome", "composto"), response);
+    }
 }
