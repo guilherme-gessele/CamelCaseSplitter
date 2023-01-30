@@ -6,10 +6,7 @@ public class CamelCaseSplitter {
 
     public static List<String> converterCamelCase(String original) {
 
-        var firstChar = original.charAt(0);
-        if (Character.isDigit(firstChar)) {
-            throw new IllegalArgumentException("Cannot start with Digit");
-        }
+        verifyIfStartsWithDigit(original);
 
         if (original.chars().anyMatch(c -> !(Character.isAlphabetic(c) || Character.isDigit(c)))){
             throw new IllegalArgumentException("Cannot have not alphabetic digits");
@@ -82,5 +79,12 @@ public class CamelCaseSplitter {
                 })
                 .toList();
 
+    }
+
+    private static void verifyIfStartsWithDigit(String original) {
+        var firstChar = original.charAt(0);
+        if (Character.isDigit(firstChar)) {
+            throw new IllegalArgumentException("Cannot start with Digit");
+        }
     }
 }
